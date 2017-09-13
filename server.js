@@ -4,7 +4,7 @@ var app = express();
 var path = require('path');
 const fallback = require('express-history-api-fallback');
 const client_id = 'fee16d25d0d5436a801d8a0c7acd7bf4'; // Your client id
-const client_secret = '2d49f209c6b34d2aa96220ba73617136'; // Your secret
+const client_secret = '6b3954de76894dcbbf5ede812a479714'; // Your secret
 const redirect_uri = 'http://localhost:4000/songs'; // Your redirect uri
 const url_accesstok = 'https://accounts.spotify.com/api/token';
 
