@@ -10,7 +10,7 @@ function extend(destination, source) {
 export class SpotifyUtil {
 
     static client_id: string = 'fee16d25d0d5436a801d8a0c7acd7bf4'; // Your client id
-    static client_secret: string = '2d49f209c6b34d2aa96220ba73617136'; // Your secret
+    static client_secret: string = '6b3954de76894dcbbf5ede812a479714'; // Your secret
     static redirect_uri: string = 'http://localhost:4000/songs'; // Your redirect uri
     static scope = 'playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private user-follow-read user-library-read user-library-modify user-read-private user-read-birthdate user-read-email user-top-read user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-recently-played';
 
