@@ -27,7 +27,10 @@ export class SongsComponent implements OnInit {
     if (res) {
       if (res.access_token) {
         this.service.setAtok(res.access_token);
-        this.service.getTracks().subscribe(tracksRes => this.setTracks(tracksRes));
+        this.service.getTracks2().subscribe(tracksRes => { 
+          console.log('SongsComponent::parseAtokRes(), tracksRes=' + JSON.stringify(tracksRes));
+          this.setTracks(tracksRes); 
+        });
       } else if (res.error) {
         this.service.setAtok(null);
         alert("Error getting API Token from Spotify: " + res.error);

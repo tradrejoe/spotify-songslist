@@ -58,6 +58,31 @@ export class SpotifyService {
       return res;
     }
   }
+  //deprecated call from browser, call api from server side except for login
+  getTracks(): Observable<any> {
+    
+      let headerDict = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        //'Access-Control-Allow-Headers': 'Content-Type', //not allowed by spotify
+        'Accept-Encoding': 'gzip, deflate, compress',
+        'User-Agent': 'Spotify API Console v0.1',
+        'Authorization': "Bearer " + this.getAtok()
+      }
+      
+      let headerObj = {                                                                                                                                                                                 
+        headers: new Headers(headerDict), 
+      };
+      
+      /*let headers: Headers = new Headers();
+      headers.append('Authorization', "Bearer " + this.getAtok());*/
+      //headers.append('Access-Control-Allow-Origin', "*");
+      //let options: RequestOptions = new RequestOptions({headers: headers});
+      //let res: any = this.http.get(url_tracks, options).map((res: Response) => res.json());
+      let res: any = this.http.get(url_tracks, headerObj).map((res: Response) => res.json());
+      console.log("SpotifyService:getTracks(), tracks respose: " + JSON.stringify(res));
+      return res;
+    }
 
   getAccessToken2() {
     let loginRes: any = SpotifyUtil.getHashParams();
@@ -79,6 +104,20 @@ export class SpotifyService {
     }
   }
 
+  getTracks2() {
+    let hdrs = {
+      'atok': this.getAtok()
+    };
+    let options = new RequestOptions();
+    let headers = new Headers();
+    headers.append('atok', this.getAtok());
+    options.headers = headers;
+    let res: Observable<any> = this.http.get(window.location.origin + '/tracks', options)
+      .map((res: Response) => res.json());
+      console.log("SpotifyService:getTracks2(), tracks response: " + JSON.stringify(res));
+      return res;      
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     // alert("body: " + body);
@@ -94,26 +133,4 @@ export class SpotifyService {
       return Observable.throw(errMsg);
   }
 
-  getTracks(): Observable<any> {
-
-    let headerDict = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      //'Access-Control-Allow-Headers': 'Content-Type', //not allowed by spotify
-      'Authorization': "Bearer " + this.getAtok()
-    }
-    
-    let headerObj = {                                                                                                                                                                                 
-      headers: new Headers(headerDict), 
-    };
-    
-    /*let headers: Headers = new Headers();
-    headers.append('Authorization', "Bearer " + this.getAtok());*/
-    //headers.append('Access-Control-Allow-Origin', "*");
-    //let options: RequestOptions = new RequestOptions({headers: headers});
-    //let res: any = this.http.get(url_tracks, options).map((res: Response) => res.json());
-    let res: any = this.http.get(url_tracks, headerObj).map((res: Response) => res.json());
-    console.log("SpotifyService:getTracks(), tracks respose: " + JSON.stringify(res));
-    return res;
-  }
 }
